@@ -1,10 +1,10 @@
 package com.vanethos.sweetly
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import io.flutter.embedding.android.FlutterActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity() {
 
     fun goToShop(v: View) {
         Log.d("TAG", "YAY");
-        val defaultFlutter = FlutterActivity.createDefaultIntent(this)
+        //val defaultFlutter = FlutterActivity.createDefaultIntent(this)
+        val defaultFlutter = Intent(this, FlutterSweetActivity::class.java)
         startActivity(defaultFlutter)
     }
 }
