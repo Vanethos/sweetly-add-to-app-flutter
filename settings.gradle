@@ -1,2 +1,7 @@
 include ':app'
 rootProject.name='sweets-shop-add-to-app'
+setBinding(new Binding([gradle: this]))
+evaluate(new File(
+        settingsDir.parentFile,
+        'add-to-app-shop/sweetly_flutter/.android/include_flutter.groovy'
+))
