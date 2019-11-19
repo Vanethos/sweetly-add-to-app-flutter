@@ -1,13 +1,13 @@
 package com.vanethos.sweetly
 
-import android.os.Bundle
+import android.content.Context
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.FlutterEngineCache
 
 
-/**
- * Created by goncalopalma on 2019-11-19
- * TODO: Class header comment
- */
 class FlutterSweetActivity : FlutterActivity() {
-    
+    override fun provideFlutterEngine(context: Context): FlutterEngine? {
+        return  FlutterEngineCache.getInstance().get(ENGINE_ID)!!
+    }
 }
