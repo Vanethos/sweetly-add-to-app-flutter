@@ -18,10 +18,10 @@ class DetailActivity : AppCompatActivity() {
         name = intent.getStringExtra("name")
         country = intent.getStringExtra("country")
         image = intent.getStringExtra("image")
-
+        title = "A Sweet Treat!"
         nameView.text = name
         countryView.text = country
-        Picasso.get().load(image).into(imageView);
+        Picasso.get().load(image).resize(200,200).centerCrop().into(imageView);
     }
 
 }

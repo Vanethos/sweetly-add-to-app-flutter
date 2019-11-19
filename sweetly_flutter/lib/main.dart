@@ -6,9 +6,6 @@ void main() {
   // MethodChannel-based model.
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Color(0x00574B)));
-
   runApp(
     MyApp(),
   );
@@ -20,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xFF008577),
+        primaryColorDark: Color(0xFF00574B)
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -43,6 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Choose a Treat!"),
+      ),
       body: ListView(
           children: sweets
               .map((item) => SweetlyListItem(
@@ -76,8 +77,9 @@ class SweetlyListItem extends StatelessWidget {
             child: Row(children: [
           Expanded(
             flex: 2,
-            child: SizedBox(height: 75, child: Image.network(item.urlImage)),
+            child: SizedBox(height: 75, child: Image.network(item.urlImage, fit: BoxFit.cover,)),
           ),
+          Spacer(),
           Expanded(
             flex: 5,
             child: Column(
@@ -99,11 +101,11 @@ class SweetlyListItem extends StatelessWidget {
 typedef SweetClick(Sweet item);
 
 final List<Sweet> sweets = [
-  Sweet("Pastel de Nata", "Portugal",
+  Sweet("Pastel de Nata (Cream Pastry)", "Portugal",
       "https://www.pingodoce.pt/wp-content/uploads/2016/10/pasteldenata.jpg"),
-  Sweet("Esse de Azeitão", "Portugal",
+  Sweet("Esse de Azeitão (S from Azeitão)", "Portugal",
       "https://pt.rc-cdn.community.thermomix.com/recipeimage/l9h1idk3-886f4-208576-cfcd2-5fmaaqw4/34626e30-feb0-4510-8aff-bbca224c4405/main/bolachas-tipo-esses-de-azeitao.jpg"),
-  Sweet("Dom Rodrigo", "Portugal",
+  Sweet("D. Rodrigo", "Portugal",
       "https://www.amodadoflavio.pt/wp-content/uploads/2017/05/dom-rodrigo-ok-999x500.jpg"),
 ];
 
