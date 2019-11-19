@@ -19,7 +19,11 @@ class FlutterSweetActivity : FlutterActivity() {
         ).setMethodCallHandler { call, _ ->
             when (call.method) {
                 "goToDetail" -> {
-                    startActivity(Intent(this, DetailActivity::class.java))
+                    val intent = Intent(this, DetailActivity::class.java)
+                    intent.putExtra("name", call.argument<String>("name"))
+                    intent.putExtra("image", call.argument<String>("image"))
+                    intent.putExtra("country", call.argument<String>("country"))
+                    startActivity(intent)
                 }
             }
         }
