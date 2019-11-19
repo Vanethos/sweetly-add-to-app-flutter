@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // This call ensures the Flutter binding has been set up before creating the
+  // MethodChannel-based model.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Color(0x00574B)));
+
+  runApp(
+    MyApp(),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -26,19 +37,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // Handle Native messages
+  final _channel = MethodChannel('com.vanethos.sweetly/flutter');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: ListView(
-          children: sweets.map((item) => SweetlyListItem(item: item, clickListener: navigateToNative,)).toList()),
+          children: sweets
+              .map((item) => SweetlyListItem(
+                    item: item,
+                    clickListener: navigateToNative,
+                  ))
+              .toList()),
     );
   }
 
-  navigateToNative(Sweet item) {
-    SystemNavigator.pop();
+  navigateToNative(Sweet item) async {
+    await _channel.invokeMethod('goToDetail', <String, String>{
+      'name': item.name,
+      'country': item.country,
+      'image': item.urlImage
+    });
   }
 }
 
@@ -82,7 +102,7 @@ final List<Sweet> sweets = [
   Sweet("Pastel de Nata", "Portugal",
       "https://www.pingodoce.pt/wp-content/uploads/2016/10/pasteldenata.jpg"),
   Sweet("Esse de Azeitão", "Portugal",
-      "http://www.docesregionais.com/wp-content/uploads/2013/06/Esses-de-Azeit%C3%A3o.jpg"),
+      "https://pt.rc-cdn.community.thermomix.com/recipeimage/l9h1idk3-886f4-208576-cfcd2-5fmaaqw4/34626e30-feb0-4510-8aff-bbca224c4405/main/bolachas-tipo-esses-de-azeitao.jpg"),
   Sweet("Dom Rodrigo", "Portugal",
       "https://www.amodadoflavio.pt/wp-content/uploads/2017/05/dom-rodrigo-ok-999x500.jpg"),
 ];
