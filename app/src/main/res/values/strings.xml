@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">sweets-shop-add-to-app</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>

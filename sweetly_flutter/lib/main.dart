@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // This call ensures the Flutter binding has been set up before creating the
+  // MethodChannel-based model.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(
+     MyApp(),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -26,6 +34,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // Handle Native messages
+  final _channel = MethodChannel('com.vanethos.sweetly/flutter');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  navigateToNative(Sweet item) {
-    SystemNavigator.pop();
+  navigateToNative(Sweet item) async {
+    await _channel.invokeMethod('goToDetail');
   }
 }
 
