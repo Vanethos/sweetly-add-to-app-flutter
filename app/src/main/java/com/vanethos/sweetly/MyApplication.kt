@@ -9,10 +9,6 @@ import io.flutter.plugin.common.MethodChannel
 const val ENGINE_ID = "1"
 
 class MyApplication : Application() {
-    var count = 0
-
-    private lateinit var channel: MethodChannel
-
     override fun onCreate() {
         super.onCreate()
 
@@ -25,9 +21,5 @@ class MyApplication : Application() {
 
         // add engine to the cache
         FlutterEngineCache.getInstance().put(ENGINE_ID, flutterEngine)
-    }
-
-    private fun reportCounter() {
-        channel.invokeMethod("reportCounter", count)
     }
 }
